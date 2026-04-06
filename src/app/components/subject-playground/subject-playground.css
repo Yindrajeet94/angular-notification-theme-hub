@@ -1,0 +1,132 @@
+.playground {
+    border: 1px solid;
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s;
+  }
+  .section { margin-bottom: 28px; }
+  .section:last-child { margin-bottom: 0; }
+  h3 {
+    font-size: 16px;
+    margin: 0 0 6px 0;
+    transition: color 0.3s;
+  }
+  .section-desc {
+    font-size: 13px;
+    margin: 0 0 14px 0;
+    transition: color 0.3s;
+  }
+  .button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .trigger-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .trigger-btn:hover { transform: translateY(-1px); }
+  .trigger-btn:active { transform: translateY(0); }
+  .trigger-btn.success { background: #ecfdf5; color: #065f46; }
+  .trigger-btn.error   { background: #fef2f2; color: #991b1b; }
+  .trigger-btn.warning { background: #fffbeb; color: #92400e; }
+  .trigger-btn.info    { background: #eff6ff; color: #1e40af; }
+  .trigger-btn.burst   { background: #f5f3ff; color: #5b21b6; width: 100%; }
+  .trigger-btn.comparison { background: #fdf4ff; color: #86198f; width: 100%; }
+
+  .loading-state {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+    font-size: 14px;
+  }
+  .spinner {
+    width: 20px; height: 20px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #4f46e5;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .config-display {
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 14px;
+    transition: all 0.3s;
+  }
+  .config-row {
+    display: flex;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 13px;
+    flex-wrap: wrap;
+    align-items: center;
+    transition: color 0.3s;
+  }
+  .config-key { font-weight: 600; min-width: 120px; }
+  .feature-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin: 2px;
+    font-weight: 600;
+  }
+  .feature-on  { background: #ecfdf5; color: #065f46; }
+  .feature-off { background: #fef2f2; color: #991b1b; }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  @media (max-width: 640px) {
+    .comparison-grid { grid-template-columns: 1fr; }
+    .button-grid { grid-template-columns: 1fr; }
+  }
+  .comparison-card {
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 14px;
+    transition: all 0.3s;
+  }
+  .comparison-card h4 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    transition: color 0.3s;
+  }
+  .comparison-desc {
+    font-size: 11px;
+    margin: 0 0 10px 0;
+    transition: color 0.3s;
+  }
+  .comparison-section { margin-bottom: 8px; }
+  .comparison-section:last-child { margin-bottom: 0; }
+  .subscriber-label {
+    font-size: 11px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .value-chips { display: flex; gap: 4px; flex-wrap: wrap; }
+  .chip {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+  .chip.empty {
+    background: transparent;
+    border: 1px dashed;
+    font-style: italic;
+    font-weight: 400;
+  }

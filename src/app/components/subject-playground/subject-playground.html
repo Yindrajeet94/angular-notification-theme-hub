@@ -1,0 +1,113 @@
+<div class="playground" [style.background]="themeConfig.cardBackground" [style.border-color]="themeConfig.border">
+
+    <!-- SECTION 1: Trigger Notifications -->
+    <div class="section">
+        <h3 [style.color]="themeConfig.textPrimary">🎮 Trigger Notifications</h3>
+        <p class="section-desc" [style.color]="themeConfig.textSecondary">
+            Click a button → Subject.next() fires → Toast appears → History records it
+        </p>
+        <div class="button-grid">
+            <button class="trigger-btn success" (click)="notify('Employee saved successfully!', 'success')">
+                ✅ Success
+            </button>
+            <button class="trigger-btn error" (click)="notify('Database connection failed!', 'error')">
+                ❌ Error
+            </button>
+            <button class="trigger-btn warning" (click)="notify('Session expires in 5 minutes', 'warning')">
+                ⚠️ Warning
+            </button>
+            <button class="trigger-btn info" (click)="notify('New version available — v2.1.0', 'info')">
+                ℹ️ Info
+            </button>
+        </div>
+        <button class="trigger-btn burst" (click)="fireBurst()">
+            🚀 Fire 5 Rapid Notifications (burst test)
+        </button>
+    </div>
+
+    <!-- SECTION 2: AsyncSubject Config Status -->
+    <div class="section">
+        <h3 [style.color]="themeConfig.textPrimary">⚙️ App Config (AsyncSubject)</h3>
+        <p class="section-desc" [style.color]="themeConfig.textSecondary">
+            Config loads in 2s. AsyncSubject emits ONLY after complete().
+            Watch the console — intermediate values are NOT received!
+        </p>
+
+        <div *ngIf="!appConfig" class="loading-state" [style.color]="themeConfig.textSecondary">
+            <span class="spinner"></span>
+            Loading config... (AsyncSubject hasn't completed yet)
+        </div>
+
+        <div *ngIf="appConfig" class="config-display"
+            [style.background]="currentTheme === 'dark' ? '#0f172a' : '#f8fafc'"
+            [style.border-color]="themeConfig.border">
+            <div class="config-row" [style.color]="themeConfig.textPrimary">
+                <span class="config-key">App Name:</span>
+                <span>{{ appConfig.appName }}</span>
+            </div>
+            <div class="config-row" [style.color]="themeConfig.textPrimary">
+                <span class="config-key">API URL:</span>
+                <span>{{ appConfig.apiBaseUrl }}</span>
+            </div>
+            <div class="config-row" [style.color]="themeConfig.textPrimary">
+                <span class="config-key">Features:</span>
+                <span>
+                    <span *ngFor="let feature of getFeatures()" class="feature-tag" [class.feature-on]="feature.enabled"
+                        [class.feature-off]="!feature.enabled">
+                        {{ feature.name }}: {{ feature.enabled ? 'ON' : 'OFF' }}
+                    </span>
+                </span>
+            </div>
+            <div class="config-row" [style.color]="themeConfig.textPrimary">
+                <span class="config-key">Session Timeout:</span>
+                <span>{{ appConfig.sessionTimeoutMinutes }} minutes</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Subject Comparison Demo -->
+    <div class="section">
+        <h3 [style.color]="themeConfig.textPrimary">🔬 Subject Comparison (Live Demo)</h3>
+        <p class="section-desc" [style.color]="themeConfig.textSecondary">
+            All 4 Subject types receive the same values (A, B, C).
+            A "late subscriber" joins after B. See what each one gets!
+        </p>
+        <button class="trigger-btn comparison" (click)="runComparison()">
+            ▶️ Run Comparison Demo
+        </button>
+
+        <div *ngIf="comparisonResults.length > 0" class="comparison-grid">
+            <div *ngFor="let result of comparisonResults" class="comparison-card"
+                [style.background]="currentTheme === 'dark' ? '#0f172a' : '#f8fafc'"
+                [style.border-color]="themeConfig.border">
+                <h4 [style.color]="themeConfig.primary">{{ result.type }}</h4>
+                <p class="comparison-desc" [style.color]="themeConfig.textSecondary">
+                    {{ result.description }}
+                </p>
+                <div class="comparison-section">
+                    <span class="subscriber-label" [style.color]="themeConfig.textSecondary">
+                        Early Subscriber (before any values):
+                    </span>
+                    <div class="value-chips">
+                        <span *ngFor="let v of result.earlyValues" class="chip" [style.background]="themeConfig.primary"
+                            style="color: white;">{{ v }}</span>
+                        <span *ngIf="result.earlyValues.length === 0" class="chip empty"
+                            [style.color]="themeConfig.textSecondary">nothing</span>
+                    </div>
+                </div>
+                <div class="comparison-section">
+                    <span class="subscriber-label" [style.color]="themeConfig.textSecondary">
+                        Late Subscriber (joins after B):
+                    </span>
+                    <div class="value-chips">
+                        <span *ngFor="let v of result.lateValues" class="chip" [style.background]="themeConfig.primary"
+                            style="color: white;">{{ v }}</span>
+                        <span *ngIf="result.lateValues.length === 0" class="chip empty"
+                            [style.color]="themeConfig.textSecondary">nothing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

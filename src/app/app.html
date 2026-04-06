@@ -1,0 +1,33 @@
+<div class="app-shell" [style.background]="themeConfig.backgroundColor" [style.color]="themeConfig.textPrimary">
+
+  <app-header></app-header>
+
+  <app-toast-container></app-toast-container>
+
+  <main class="main-content">
+    <div class="content-grid">    
+      <app-subject-playground></app-subject-playground>
+
+      <div>
+        <button
+          (click)="showHistory = !showHistory"
+          [style.background]="themeConfig.primary"
+          style="color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; margin-bottom: 12px; width: 100%;">
+          {{ showHistory ? '🙈 Hide History Panel' : '👁️ Show History Panel' }}
+        </button>
+
+        <app-notification-history *ngIf="showHistory"></app-notification-history>
+      </div>
+    </div>
+
+    <div class="footer" [style.border-top-color]="themeConfig.border">
+      <p [style.color]="themeConfig.textSecondary">
+        <strong>RxJS Subjects Used:</strong>
+        Subject · BehaviorSubject · ReplaySubject · AsyncSubject
+      </p>
+      <p [style.color]="themeConfig.primary" style="font-style: italic; font-size: 12px;">
+        Open browser DevTools Console (F12) to see all Subject emissions in real-time!
+      </p>
+    </div>
+  </main>
+</div>

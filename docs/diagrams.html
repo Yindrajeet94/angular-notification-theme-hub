@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Angular Notification Hub — Diagrams</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 40px 24px 80px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 56px;
+    }
+
+    section {
+      max-width: 960px;
+      margin: 0 auto 72px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #818cf8;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-desc {
+      color: #64748b;
+      font-size: 13px;
+      margin-bottom: 24px;
+      padding-left: 2px;
+    }
+
+    /* ─── DIAGRAM 1: Architecture ─────────────────────────────── */
+
+    .arch-grid {
+      display: grid;
+      grid-template-rows: auto auto auto;
+      gap: 0;
+    }
+
+    .arch-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+    }
+
+    .arch-row + .arch-row {
+      margin-top: 0;
+    }
+
+    /* Components row */
+    .comp-box {
+      background: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 10px;
+      padding: 14px 18px;
+      min-width: 160px;
+      text-align: center;
+    }
+
+    .comp-box .comp-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+    }
+
+    .comp-box .comp-tag {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .comp-box.highlight {
+      border-color: #818cf8;
+    }
+
+    /* Connector area */
+    .connectors {
+      position: relative;
+      height: 80px;
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .connectors svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Service boxes */
+    .service-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .service-box {
+      background: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 12px;
+      padding: 18px 22px;
+      min-width: 380px;
+      max-width: 430px;
+    }
+
+    .service-box.notification { border-color: #7c3aed; }
+    .service-box.theme { border-color: #0284c7; }
+
+    .service-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .service-box.notification .service-name { color: #a78bfa; }
+    .service-box.theme .service-name { color: #38bdf8; }
+
+    .subject-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0f172a;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 12px;
+      margin: 3px 3px 3px 0;
+    }
+
+    .pill-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .pill-label { color: #94a3b8; }
+    .pill-type  { color: #64748b; font-style: italic; }
+
+    /* ─── DIAGRAM 2: Notification Flow ───────────────────────── */
+
+    .flow-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: stretch;
+      gap: 16px;
+    }
+
+    .flow-step + .flow-step {
+      margin-top: 0;
+    }
+
+    .step-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 44px;
+      flex-shrink: 0;
+    }
+
+    .step-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-line {
+      width: 2px;
+      flex: 1;
+      min-height: 20px;
+      background: #334155;
+      margin: 4px 0;
+    }
+
+    .step-body {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 14px 18px;
+      flex: 1;
+      margin-bottom: 8px;
+    }
+
+    .step-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .step-detail {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .step-code {
+      display: inline-block;
+      background: #0f172a;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+      font-size: 12px;
+      color: #a78bfa;
+      margin-top: 4px;
+    }
+
+    .branch-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .branch-card {
+      flex: 1;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .branch-card .branch-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .branch-card .branch-detail {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .color-purple { color: #a78bfa; }
+    .color-blue   { color: #38bdf8; }
+    .color-green  { color: #34d399; }
+    .color-yellow { color: #fbbf24; }
+    .color-pink   { color: #f472b6; }
+
+    .bg-purple { background: #4c1d95; }
+    .bg-blue   { background: #0c4a6e; }
+    .bg-green  { background: #064e3b; }
+    .bg-yellow { background: #78350f; }
+    .bg-pink   { background: #831843; }
+
+    .border-purple { border-color: #7c3aed; }
+    .border-blue   { border-color: #0284c7; }
+    .border-green  { border-color: #059669; }
+    .border-yellow { border-color: #d97706; }
+
+    /* ─── DIAGRAM 3: Subject Types ────────────────────────────── */
+
+    .subject-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+
+    .subject-table thead tr {
+      background: #1e293b;
+    }
+
+    .subject-table th {
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 600;
+      color: #94a3b8;
+      font-size: 12px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .subject-table td {
+      padding: 14px;
+      vertical-align: top;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .subject-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .subject-table tr:nth-child(odd) td {
+      background: #1a2540;
+    }
+
+    .subject-table tr:nth-child(even) td {
+      background: #1e293b;
+    }
+
+    .timeline-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .timeline-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .tl-label {
+      width: 120px;
+      flex-shrink: 0;
+      color: #94a3b8;
+      font-size: 11px;
+    }
+
+    .tl-track {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      position: relative;
+    }
+
+    .tl-line {
+      height: 2px;
+      background: #334155;
+      width: 20px;
+    }
+
+    .tl-val {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .tl-val.miss {
+      background: transparent;
+      border: 1.5px dashed #334155;
+      color: #475569;
+    }
+
+    .tl-val.replay {
+      border-style: dashed;
+      border-width: 1.5px;
+    }
+
+    .tl-val.got { }
+
+    .tl-sep {
+      height: 24px;
+      width: 2px;
+      background: #f59e0b;
+      margin: 0 6px;
+      flex-shrink: 0;
+    }
+
+    .tl-sep-label {
+      font-size: 10px;
+      color: #f59e0b;
+      white-space: nowrap;
+      margin-left: 2px;
+      margin-right: 6px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge-purple { background: #4c1d95; color: #a78bfa; }
+    .badge-blue   { background: #0c4a6e; color: #38bdf8; }
+    .badge-green  { background: #064e3b; color: #34d399; }
+    .badge-orange { background: #78350f; color: #fb923c; }
+
+    /* ─── DIAGRAM 4: Change Detection flow ───────────────────── */
+    .cd-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .cd-box {
+      background: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .cd-box h4 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .cd-box p {
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .cd-box .step-code {
+      display: block;
+      margin-top: 6px;
+    }
+
+    .cd-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #64748b;
+      font-size: 20px;
+    }
+
+    .cd-arrow span {
+      font-size: 11px;
+      color: #475569;
+      white-space: nowrap;
+    }
+
+    .divider {
+      height: 1px;
+      background: #1e293b;
+      max-width: 960px;
+      margin: 0 auto 64px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Angular Notification Hub — Diagrams</h1>
+  <p class="subtitle">Architecture, data flow, and RxJS Subject behaviour for Project 2</p>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- DIAGRAM 1: Architecture Overview                              -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section>
+    <h2>🏛️ Architecture Overview</h2>
+    <p class="section-desc">
+      Every component subscribes to shared services. No component talks directly to another — all communication goes through subjects.
+    </p>
+
+    <!-- Components row -->
+    <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:0;">
+      <div class="comp-box">
+        <div class="comp-name">AppComponent</div>
+        <div class="comp-tag">Root shell · theme binding</div>
+      </div>
+      <div class="comp-box highlight">
+        <div class="comp-name">HeaderComponent</div>
+        <div class="comp-tag">Bell badge · theme toggle</div>
+      </div>
+      <div class="comp-box highlight">
+        <div class="comp-name">ToastContainer</div>
+        <div class="comp-tag">Live pop-up toasts</div>
+      </div>
+      <div class="comp-box highlight">
+        <div class="comp-name">SubjectPlayground</div>
+        <div class="comp-tag">Trigger panel · config</div>
+      </div>
+      <div class="comp-box highlight">
+        <div class="comp-name">NotificationHistory</div>
+        <div class="comp-tag">Scrollable history list</div>
+      </div>
+    </div>
+
+    <!-- SVG arrows down to services -->
+    <div style="position:relative; height:80px; max-width:900px; margin:0 auto;">
+      <svg viewBox="0 0 900 80" preserveAspectRatio="none" style="width:100%;height:100%;">
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,1 L7,4 L0,7 Z" fill="#334155"/>
+          </marker>
+          <marker id="arr-p" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,1 L7,4 L0,7 Z" fill="#7c3aed"/>
+          </marker>
+          <marker id="arr-b" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,1 L7,4 L0,7 Z" fill="#0284c7"/>
+          </marker>
+        </defs>
+
+        <!-- App → NotificationService (dashed, uses theme only) -->
+        <line x1="78"  y1="2" x2="78"  y2="75" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-b)"/>
+
+        <!-- Header → both -->
+        <line x1="218" y1="2" x2="180" y2="75" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr-b)"/>
+        <line x1="222" y1="2" x2="630" y2="75" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arr-p)"/>
+
+        <!-- Toast → NotificationService -->
+        <line x1="358" y1="2" x2="680" y2="75" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arr-p)"/>
+
+        <!-- Playground → both -->
+        <line x1="538" y1="2" x2="280" y2="75" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr-b)"/>
+        <line x1="542" y1="2" x2="720" y2="75" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arr-p)"/>
+
+        <!-- History → both -->
+        <line x1="748" y1="2" x2="340" y2="75" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr-b)"/>
+        <line x1="752" y1="2" x2="760" y2="75" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arr-p)"/>
+
+        <!-- Labels -->
+        <text x="440" y="42" text-anchor="middle" fill="#0284c7" font-size="11" font-family="Segoe UI,sans-serif">theme$</text>
+        <text x="700" y="42" text-anchor="middle" fill="#7c3aed" font-size="11" font-family="Segoe UI,sans-serif">notifications$ / history$ / count$</text>
+      </svg>
+    </div>
+
+    <!-- Services row -->
+    <div class="service-row">
+      <div class="service-box theme">
+        <div class="service-name">ThemeService</div>
+        <div>
+          <div class="subject-pill">
+            <div class="pill-dot" style="background:#38bdf8;"></div>
+            <span class="pill-label">themeSubject</span>
+            <span class="pill-type">BehaviorSubject&lt;Theme&gt;('light')</span>
+          </div>
+          <br/>
+          <div style="font-size:12px; color:#64748b; margin-top:6px;">
+            Exposes <code style="color:#38bdf8;">theme$</code> as read-only Observable.<br/>
+            <code style="color:#94a3b8;">toggleTheme()</code> and <code style="color:#94a3b8;">setTheme()</code> call <code style="color:#38bdf8;">.next()</code>.
+          </div>
+        </div>
+      </div>
+
+      <div class="service-box notification">
+        <div class="service-name">NotificationService</div>
+        <div>
+          <div class="subject-pill">
+            <div class="pill-dot" style="background:#a78bfa;"></div>
+            <span class="pill-label">notificationSubject</span>
+            <span class="pill-type">Subject&lt;Notification&gt;</span>
+          </div>
+          <div class="subject-pill">
+            <div class="pill-dot" style="background:#34d399;"></div>
+            <span class="pill-label">historySubject</span>
+            <span class="pill-type">ReplaySubject&lt;Notification&gt;(50)</span>
+          </div>
+          <div class="subject-pill">
+            <div class="pill-dot" style="background:#fbbf24;"></div>
+            <span class="pill-label">countSubject</span>
+            <span class="pill-type">Subject&lt;number&gt;</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-top:6px;">
+            <code style="color:#94a3b8;">show()</code> calls <code style="color:#a78bfa;">.next()</code> on all three subjects simultaneously.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- DIAGRAM 2: Notification Flow                                  -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section>
+    <h2>⚡ Notification Flow — Step by Step</h2>
+    <p class="section-desc">
+      What happens when the user clicks "✅ Success" in the playground.
+    </p>
+
+    <div class="flow-container">
+
+      <!-- Step 1 -->
+      <div class="flow-step">
+        <div class="step-left">
+          <div class="step-num" style="background:#4c1d95; color:#a78bfa;">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body" style="border-color:#7c3aed;">
+          <div class="step-title color-purple">User clicks a button in SubjectPlayground</div>
+          <div class="step-detail">
+            Angular's event binding fires the click handler.
+            <div class="step-code">(click)="notify('Employee saved!', 'success')"</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="flow-step">
+        <div class="step-left">
+          <div class="step-num" style="background:#0c4a6e; color:#38bdf8;">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body" style="border-color:#0284c7;">
+          <div class="step-title color-blue">SubjectPlayground calls NotificationService.show()</div>
+          <div class="step-detail">
+            The component itself does <em>not</em> know who will display the notification.
+            It delegates entirely to the service.
+            <div class="step-code">this.notificationService.show(message, type)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="flow-step">
+        <div class="step-left">
+          <div class="step-num" style="background:#064e3b; color:#34d399;">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body" style="border-color:#059669;">
+          <div class="step-title color-green">NotificationService builds the Notification object and calls .next() on 3 subjects</div>
+          <div class="step-detail">
+            A single <code style="color:#34d399;">show()</code> call fans out to three independent streams simultaneously.
+          </div>
+          <div class="branch-row">
+            <div class="branch-card" style="border-color:#7c3aed;">
+              <div class="branch-title color-purple">notificationSubject.next(n)</div>
+              <div class="branch-detail">Plain Subject — live toast stream</div>
+            </div>
+            <div class="branch-card" style="border-color:#34d399;">
+              <div class="branch-title color-green">historySubject.next(n)</div>
+              <div class="branch-detail">ReplaySubject — persistent history</div>
+            </div>
+            <div class="branch-card" style="border-color:#fbbf24;">
+              <div class="branch-title color-yellow">countSubject.next(count++)</div>
+              <div class="branch-detail">Subject — bell badge number</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="flow-step">
+        <div class="step-left">
+          <div class="step-num" style="background:#78350f; color:#fbbf24;">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body" style="border-color:#d97706;">
+          <div class="step-title color-yellow">All subscribers receive their value synchronously</div>
+          <div class="step-detail">RxJS Subjects push synchronously — the callbacks run inline, before .next() even returns.</div>
+          <div class="branch-row">
+            <div class="branch-card" style="border-color:#7c3aed;">
+              <div class="branch-title color-purple">ToastContainer</div>
+              <div class="branch-detail">activeToasts.push(n)<br/>sets setTimeout for auto-dismiss</div>
+            </div>
+            <div class="branch-card" style="border-color:#34d399;">
+              <div class="branch-title color-green">NotificationHistory</div>
+              <div class="branch-detail">notifications.push(n)<br/>list re-renders with new item</div>
+            </div>
+            <div class="branch-card" style="border-color:#fbbf24;">
+              <div class="branch-title color-yellow">Header</div>
+              <div class="branch-detail">notificationCount = count<br/>badge appears / increments</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="flow-step">
+        <div class="step-left">
+          <div class="step-num" style="background:#831843; color:#f472b6;">5</div>
+          <div class="step-line" style="background:transparent;"></div>
+        </div>
+        <div class="step-body" style="border-color:#db2777;">
+          <div class="step-title color-pink">cdr.markForCheck() triggers Angular to re-render (zoneless)</div>
+          <div class="step-detail">
+            Because this app has no Zone.js, each subscription callback calls
+            <code style="color:#f472b6;">this.cdr.markForCheck()</code> after mutating state.
+            Angular then schedules a change-detection pass and updates the DOM.
+            <div class="step-code">this.cdr.markForCheck()  // injected ChangeDetectorRef</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- DIAGRAM 3: Theme Flow                                         -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section>
+    <h2>🌙 Theme Toggle Flow</h2>
+    <p class="section-desc">
+      What happens when the user clicks the dark/light toggle in the Header.
+    </p>
+
+    <div class="flow-container">
+
+      <div class="flow-step">
+        <div class="step-left">
+          <div class="step-num" style="background:#0c4a6e; color:#38bdf8;">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body" style="border-color:#0284c7;">
+          <div class="step-title color-blue">Header calls ThemeService.toggleTheme()</div>
+          <div class="step-detail">
+            <div class="step-code">(click)="toggleTheme()"  →  this.themeService.toggleTheme()</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-left">
+          <div class="step-num" style="background:#0c4a6e; color:#38bdf8;">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body" style="border-color:#0284c7;">
+          <div class="step-title color-blue">ThemeService reads current value and pushes the opposite</div>
+          <div class="step-detail">
+            Only BehaviorSubject supports <code style="color:#38bdf8;">.getValue()</code> — regular Subject has no current value.
+            <div class="step-code">const current = this.themeSubject.getValue();   // 'light'<br/>this.themeSubject.next(current === 'light' ? 'dark' : 'light');</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-left">
+          <div class="step-num" style="background:#0c4a6e; color:#38bdf8;">3</div>
+          <div class="step-line" style="background:transparent;"></div>
+        </div>
+        <div class="step-body" style="border-color:#0284c7;">
+          <div class="step-title color-blue">ALL components subscribed to theme$ receive the new value instantly</div>
+          <div class="step-detail">Five components — App, Header, Toast, Playground, History — all update their <code style="color:#38bdf8;">themeConfig</code> and call <code style="color:#f472b6;">markForCheck()</code>. Every background, text, and border color transitions smoothly.</div>
+          <div class="branch-row">
+            <div class="branch-card" style="border-color:#0284c7;">
+              <div class="branch-title color-blue">AppComponent</div>
+              <div class="branch-detail">app-shell background</div>
+            </div>
+            <div class="branch-card" style="border-color:#0284c7;">
+              <div class="branch-title color-blue">HeaderComponent</div>
+              <div class="branch-detail">header bar + toggle thumb</div>
+            </div>
+            <div class="branch-card" style="border-color:#0284c7;">
+              <div class="branch-title color-blue">SubjectPlayground</div>
+              <div class="branch-detail">card background + text</div>
+            </div>
+            <div class="branch-card" style="border-color:#0284c7;">
+              <div class="branch-title color-blue">NotificationHistory</div>
+              <div class="branch-detail">panel background + borders</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- DIAGRAM 4: RxJS Subject Types Comparison                      -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section>
+    <h2>🔬 RxJS Subject Types — What Each Subscriber Gets</h2>
+    <p class="section-desc">
+      Values A and B are emitted before the late subscriber joins. Value C is emitted after.
+      The vertical bar marks where the late subscriber joins.
+    </p>
+
+    <table class="subject-table">
+      <thead>
+        <tr>
+          <th style="width:160px;">Type</th>
+          <th style="width:100px;">Used for</th>
+          <th>Timeline</th>
+          <th>Key rule</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- Subject -->
+        <tr>
+          <td>
+            <span class="badge badge-purple">Subject</span><br/>
+            <span style="font-size:11px;color:#64748b;margin-top:4px;display:block;">notifications$</span>
+          </td>
+          <td style="font-size:12px; color:#94a3b8;">Toast pop-ups</td>
+          <td>
+            <div class="timeline-wrap">
+              <div class="timeline-row">
+                <span class="tl-label">Early subscriber</span>
+                <div class="tl-track">
+                  <div class="tl-val got" style="background:#4c1d95;color:#a78bfa;">A</div>
+                  <div class="tl-line"></div>
+                  <div class="tl-val got" style="background:#4c1d95;color:#a78bfa;">B</div>
+                  <div class="tl-sep"></div><span class="tl-sep-label">late sub joins</span>
+                  <div class="tl-val got" style="background:#4c1d95;color:#a78bfa;">C</div>
+                </div>
+              </div>
+              <div class="timeline-row">
+                <span class="tl-label">Late subscriber</span>
+                <div class="tl-track">
+                  <div class="tl-val miss">A</div>
+                  <div class="tl-line"></div>
+                  <div class="tl-val miss">B</div>
+                  <div class="tl-sep"></div><span class="tl-sep-label"></span>
+                  <div class="tl-val got" style="background:#4c1d95;color:#a78bfa;">C</div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:#94a3b8;">No memory. Only receives emissions from the moment of subscription onward.</td>
+        </tr>
+
+        <!-- BehaviorSubject -->
+        <tr>
+          <td>
+            <span class="badge badge-blue">BehaviorSubject</span><br/>
+            <span style="font-size:11px;color:#64748b;margin-top:4px;display:block;">theme$</span>
+          </td>
+          <td style="font-size:12px; color:#94a3b8;">Theme state</td>
+          <td>
+            <div class="timeline-wrap">
+              <div class="timeline-row">
+                <span class="tl-label">Early subscriber</span>
+                <div class="tl-track">
+                  <div class="tl-val got" style="background:#0c4a6e;color:#38bdf8;font-size:9px;width:28px;">init</div>
+                  <div class="tl-line"></div>
+                  <div class="tl-val got" style="background:#0c4a6e;color:#38bdf8;">A</div>
+                  <div class="tl-line"></div>
+                  <div class="tl-val got" style="background:#0c4a6e;color:#38bdf8;">B</div>
+                  <div class="tl-sep"></div><span class="tl-sep-label">late sub joins</span>
+                  <div class="tl-val got" style="background:#0c4a6e;color:#38bdf8;">C</div>
+                </div>
+              </div>
+              <div class="timeline-row">
+                <span class="tl-label">Late subscriber</span>
+                <div class="tl-track">
+                  <div class="tl-val miss" style="width:28px;font-size:9px;">init</div>
+                  <div class="tl-line"></div>
+                  <div class="tl-val miss">A</div>
+                  <div class="tl-line"></div>
+                  <div class="tl-val replay" style="background:#0c4a6e;color:#38bdf8;border-color:#38bdf8;">B</div>
+                  <div class="tl-sep"></div><span class="tl-sep-label"></span>
+                  <div class="tl-val got" style="background:#0c4a6e;color:#38bdf8;">C</div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:#94a3b8;">Always has a current value. Late subscriber immediately gets the <em>current</em> value (B), then future emissions.</td>
+        </tr>
+
+        <!-- ReplaySubject -->
+        <tr>
+          <td>
+            <span class="badge badge-green">ReplaySubject(2)</span><br/>
+            <span style="font-size:11px;color:#64748b;margin-top:4px;display:block;">history$</span>
+          </td>
+          <td style="font-size:12px; color:#94a3b8;">Notif. history</td>
+          <td>
+            <div class="timeline-wrap">
+              <div class="timeline-row">
+                <span class="tl-label">Early subscriber</span>
+                <div class="tl-track">
+                  <div class="tl-val got" style="background:#064e3b;color:#34d399;">A</div>
+                  <div class="tl-line"></div>
+                  <div class="tl-val got" style="background:#064e3b;color:#34d399;">B</div>
+                  <div class="tl-sep"></div><span class="tl-sep-label">late sub joins</span>
+                  <div class="tl-val got" style="background:#064e3b;color:#34d399;">C</div>
+                </div>
+              </div>
+              <div class="timeline-row">
+                <span class="tl-label">Late subscriber</span>
+                <div class="tl-track">
+                  <div class="tl-val replay" style="background:#064e3b;color:#34d399;border-color:#34d399;">A</div>
+                  <div class="tl-line"></div>
+                  <div class="tl-val replay" style="background:#064e3b;color:#34d399;border-color:#34d399;">B</div>
+                  <div class="tl-sep"></div><span class="tl-sep-label"></span>
+                  <div class="tl-val got" style="background:#064e3b;color:#34d399;">C</div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:#94a3b8;">Replays the last N values to any new subscriber. In this app buffer = 50, so history panel always sees recent notifications.</td>
+        </tr>
+
+        <!-- AsyncSubject -->
+        <tr>
+          <td>
+            <span class="badge badge-orange">AsyncSubject</span><br/>
+            <span style="font-size:11px;color:#64748b;margin-top:4px;display:block;">config$</span>
+          </td>
+          <td style="font-size:12px; color:#94a3b8;">App config load</td>
+          <td>
+            <div class="timeline-wrap">
+              <div class="timeline-row">
+                <span class="tl-label">Early subscriber</span>
+                <div class="tl-track">
+                  <div class="tl-val miss">A</div>
+                  <div class="tl-line"></div>
+                  <div class="tl-val miss">B</div>
+                  <div class="tl-sep"></div><span class="tl-sep-label">late sub joins</span>
+                  <div class="tl-val miss">C</div>
+                  <div class="tl-line" style="background:#f59e0b;"></div>
+                  <div class="tl-val got" style="background:#78350f;color:#fb923c;font-size:9px;width:36px;">C ✓</div>
+                </div>
+              </div>
+              <div class="timeline-row">
+                <span class="tl-label">Late subscriber</span>
+                <div class="tl-track">
+                  <div class="tl-val miss">A</div>
+                  <div class="tl-line"></div>
+                  <div class="tl-val miss">B</div>
+                  <div class="tl-sep"></div><span class="tl-sep-label"></span>
+                  <div class="tl-val miss">C</div>
+                  <div class="tl-line" style="background:#f59e0b;"></div>
+                  <div class="tl-val got" style="background:#78350f;color:#fb923c;font-size:9px;width:36px;">C ✓</div>
+                </div>
+              </div>
+              <div class="timeline-row" style="margin-top:4px;">
+                <span class="tl-label" style="color:#f59e0b;">▲ complete() called</span>
+                <span style="font-size:11px;color:#64748b;">Only then do subscribers receive the last emitted value (C)</span>
+              </div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:#94a3b8;">Emits only the <em>last</em> value and only after <code style="color:#fb923c;">complete()</code> is called. Perfect for one-shot async ops like loading config.</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <div style="margin-top:12px; display:flex; gap:16px; flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#64748b;">
+        <div style="width:18px;height:18px;border-radius:50%;background:#1e293b;border:1.5px dashed #475569;"></div>
+        value missed (not received)
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#64748b;">
+        <div style="width:18px;height:18px;border-radius:50%;background:#064e3b;border:1.5px dashed #34d399;"></div>
+        replayed (received retroactively)
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#64748b;">
+        <div style="width:18px;height:18px;border-radius:50%;background:#4c1d95;border:none;"></div>
+        received normally
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- DIAGRAM 5: Zoneless Change Detection                          -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section>
+    <h2>🔄 Zoneless Change Detection Pattern</h2>
+    <p class="section-desc">
+      Without Zone.js, Angular doesn't know when async callbacks (RxJS subscriptions, setTimeout) mutate state.
+      Each component manually signals Angular to re-check.
+    </p>
+
+    <div style="display:flex; flex-direction:column; gap:16px;">
+
+      <!-- With Zone (crossed out) -->
+      <div style="background:#1a1a2e; border:1px dashed #334155; border-radius:10px; padding:16px 20px; opacity:0.55;">
+        <div style="font-size:13px; font-weight:600; color:#64748b; margin-bottom:8px;">❌ With Zone.js (not this app)</div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:#475569; flex-wrap:wrap;">
+          <div style="background:#0f172a; border-radius:6px; padding:6px 10px;">subscription fires</div>
+          <div>→</div>
+          <div style="background:#0f172a; border-radius:6px; padding:6px 10px;">Zone.js patches the callback</div>
+          <div>→</div>
+          <div style="background:#0f172a; border-radius:6px; padding:6px 10px;">Angular notified automatically</div>
+          <div>→</div>
+          <div style="background:#0f172a; border-radius:6px; padding:6px 10px;">DOM updates</div>
+        </div>
+      </div>
+
+      <!-- Without Zone (this app) -->
+      <div style="background:#1e293b; border:1px solid #059669; border-radius:10px; padding:16px 20px;">
+        <div style="font-size:13px; font-weight:600; color:#34d399; margin-bottom:8px;">✅ Without Zone.js (this app)</div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:#94a3b8; flex-wrap:wrap;">
+          <div style="background:#0f172a; border-radius:6px; padding:6px 10px;">subscription fires</div>
+          <div>→</div>
+          <div style="background:#0f172a; border-radius:6px; padding:6px 10px;">state updated in callback</div>
+          <div>→</div>
+          <div style="background:#064e3b; border:1px solid #059669; border-radius:6px; padding:6px 10px; color:#34d399; font-weight:600;">
+            cdr.markForCheck()
+          </div>
+          <div>→</div>
+          <div style="background:#0f172a; border-radius:6px; padding:6px 10px;">Angular schedules check</div>
+          <div>→</div>
+          <div style="background:#0f172a; border-radius:6px; padding:6px 10px;">DOM updates</div>
+        </div>
+        <div style="margin-top:12px; font-size:12px; color:#64748b;">
+          <strong style="color:#94a3b8;">Applies to:</strong>
+          RxJS subscription callbacks · <code style="color:#a78bfa;">setTimeout</code> callbacks (toast auto-dismiss) · any async callback that mutates component state
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>

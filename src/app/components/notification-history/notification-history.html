@@ -1,0 +1,50 @@
+<div class="history-panel" [style.background]="themeConfig.cardBackground"
+         [style.border-color]="themeConfig.border">
+      <h3 [style.color]="themeConfig.textPrimary">
+        📋 Notification History
+        <span class="history-subtitle" [style.color]="themeConfig.textSecondary">
+          (ReplaySubject — shows past + live)
+        </span>
+      </h3>
+
+      <div *ngIf="notifications.length === 0" class="empty-state"
+           [style.color]="themeConfig.textSecondary">
+        No notifications yet. Trigger some from the playground above!
+      </div>
+
+      <div class="notification-list">
+        <!--
+          *ngFor with reverse — newest first.
+          We use .slice().reverse() to avoid mutating the original array.
+        -->
+        <div *ngFor="let n of notifications.slice().reverse()"
+             class="notification-item"
+             [class.item-success]="n.type === 'success'"
+             [class.item-error]="n.type === 'error'"
+             [class.item-warning]="n.type === 'warning'"
+             [class.item-info]="n.type === 'info'"
+             [style.border-color]="themeConfig.border">
+
+          <span class="item-icon">
+            {{ n.type === 'success' ? '✅' :
+               n.type === 'error'   ? '❌' :
+               n.type === 'warning' ? '⚠️' : 'ℹ️' }}
+          </span>
+          <div class="item-content">
+            <p class="item-message" [style.color]="themeConfig.textPrimary">
+              {{ n.message }}
+            </p>
+            <span class="item-time" [style.color]="themeConfig.textSecondary">
+              {{ n.timestamp | date:'h:mm:ss a' }}
+            </span>
+          </div>
+          <span class="item-type-badge"
+                [class.badge-success]="n.type === 'success'"
+                [class.badge-error]="n.type === 'error'"
+                [class.badge-warning]="n.type === 'warning'"
+                [class.badge-info]="n.type === 'info'">
+            {{ n.type }}
+          </span>
+        </div>
+      </div>
+    </div>

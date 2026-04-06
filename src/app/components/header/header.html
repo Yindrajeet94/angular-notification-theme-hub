@@ -1,0 +1,33 @@
+<header class="header" [style.background]="themeConfig.cardBackground"
+            [style.border-bottom-color]="themeConfig.border">
+
+      <div class="header-left">
+        <h1 [style.color]="themeConfig.textPrimary">
+          🔔 Notification Hub
+        </h1>
+        <span class="badge" [style.color]="themeConfig.textSecondary">
+          Project 2 — Subjects
+        </span>
+      </div>
+
+      <div class="header-right">
+        <button class="icon-btn" (click)="resetCount()"
+                [style.color]="themeConfig.textPrimary"
+                title="Click to clear notification count">
+          🔔
+          <span class="notification-badge" *ngIf="notificationCount > 0">
+            {{ notificationCount > 99 ? '99+' : notificationCount }}
+          </span>
+        </button>
+
+        <button class="theme-toggle" (click)="toggleTheme()"
+                [style.background]="currentTheme === 'dark' ? '#334155' : '#e2e8f0'"
+                title="Toggle dark/light theme">
+          <span class="toggle-thumb"
+                [style.transform]="currentTheme === 'dark' ? 'translateX(24px)' : 'translateX(0)'"
+                [style.background]="currentTheme === 'dark' ? '#818cf8' : '#4f46e5'">
+            {{ currentTheme === 'dark' ? '🌙' : '☀️' }}
+          </span>
+        </button>
+      </div>
+    </header>
