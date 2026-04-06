@@ -73,16 +73,3 @@ src/app/
 │   ├── notification-history/      ← History panel (ReplaySubject consumer)
 │   └── subject-playground/        ← Interactive demo + comparison
 └── app.component.ts               ← Root layout
-```
-
-## 📚 Part of Angular Mastery Series
-This is **Project 2 of 14** in my Angular + RxJS learning journey covering 50+ concepts through real-world projects.
-
-| # | Project | Status |
-|---|---------|--------|
-| 1 | [OTP Resend Timer](../angular-otp-timer) | ✅ Done |
-| 2 | Notification & Theme Hub | ✅ Current |
-| 3 | Employee Directory (CRUD) | ⏳ Next |
-
----
-*Built while learning Angular as a .NET developer — every line is commented with C# equivalents for reference.*
